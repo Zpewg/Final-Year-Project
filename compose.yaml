@@ -1,0 +1,7 @@
+﻿services:
+  task management apptaskmanagementapp:
+    image: task management apptaskmanagementapp
+    build:
+      context: .
+      dockerfile: Task Management App/Dockerfile
+
