@@ -4,16 +4,50 @@
     <projectFile profileName="http">Task Management App/Task Management App.csproj</projectFile>
     <projectFile profileName="https">Task Management App/Task Management App.csproj</projectFile>
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="7bbc3883-a808-4df2-b8c7-c15633bca6c6" name="Changes" comment="" />
+    <list default="true" id="7bbc3883-a808-4df2-b8c7-c15633bca6c6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Task Management App/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/Task Management App.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/Task Management App.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/Debug/net9.0/Task Management App.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/Task Management App.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/Task Management App.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/Task Management App.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/Task Management App.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/Task Management App.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/Task Management App.csproj.nuget.g.targets" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task Management App/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/Task Management App/obj/rider.project.restore.info" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DpaMonitoringSettings">
+    <option name="firstShow" value="false" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Zpewg"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Zpewg/Final-Year-Project.git",
+    "accountId": "f2f3ca81-4ca3-4bce-a6e2-4fc5ed5c06e9"
+  }
+}]]></component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 5
 }]]></component>
@@ -24,6 +58,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    ".NET Launch Settings Profile.Task Management App: http.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -32,6 +67,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.language",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -112,16 +148,28 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1754405853231</updated>
-      <workItem from="1754405862105" duration="440000" />
+      <workItem from="1754405862105" duration="3785000" />
     </task>
+    <task id="LOCAL-00001" summary="Just Created the prject">
+      <option name="closed" value="true" />
+      <created>1754406364524</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1754406364524</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Just Created the prject" />
+    <option name="LAST_COMMIT_MESSAGE" value="Just Created the prject" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -140,5 +188,9 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
