@@ -7,5 +7,6 @@ Microsoft.VisualStudio.WEb.CodeGeneration 9.0.0
 ENV file maker
 ENV file masker
 
-First day:
+Progress:
 Created the first entity classes. 
+The app is now connected to a database via docker.
