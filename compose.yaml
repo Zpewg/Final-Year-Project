@@ -14,7 +14,7 @@
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=TaskDB;User Id=sa;Password=${SA_PASSWORD};TrustedCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=localhost;Database=TaskDB;User Id=sa;Password=${SA_PASSWORD};TrustedCertificate=True;
       
 
   db:
