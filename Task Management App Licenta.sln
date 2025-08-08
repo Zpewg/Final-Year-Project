@@ -5,6 +5,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F68536A-BC07-4188-82BB-C319AECE2BAE}"
 	ProjectSection(SolutionItems) = preProject
 		compose.yaml = compose.yaml
+		pass.env = pass.env
 	EndProjectSection
 EndProject
 Global

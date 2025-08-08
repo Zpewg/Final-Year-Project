@@ -1,7 +1,33 @@
 ﻿services:
-  task management apptaskmanagementapp:
-    image: task management apptaskmanagementapp
+  taskmanagementapp:
+    image: taskmanagementapp
     build:
       context: .
       dockerfile: Task Management App/Dockerfile
+      
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TaskDB;User Id=sa;Password=${SA_PASSWORD};TrustedCertificate=True;
+      
 
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: taskmanager-sql
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sql_data:/var/opt/mssql
+    
+volumes:
+  sql_data:
+      

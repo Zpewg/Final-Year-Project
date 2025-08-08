@@ -4,6 +4,8 @@ Microsoft.EntityFrameworkCore 9.0.8
 Microsoft.EntityFrameworkCore.SqlServer 9.0.8
 Microsoft.EntityFrameworkCore.Tools 9.0.8
 Microsoft.VisualStudio.WEb.CodeGeneration 9.0.0
+ENV file maker
+ENV file masker
 
 First day:
 Created the first entity classes. 

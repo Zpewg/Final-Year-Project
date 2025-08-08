@@ -22,7 +22,7 @@ public class UserTasks
     
     [Column(TypeName = "varchar(40)")]
     [Required]
-    public string nameOfTask { get; set; }
+    public string NameOfTask { get; set; }
 
     [NotMapped]
     public string DueDateFormat
@@ -57,7 +57,7 @@ public class UserTasks
         this.Description = Description;
         this.Date = Date;
         this.Time  = Time;
-        this.nameOfTask = NameOfTask;
+        this.NameOfTask = NameOfTask;
     }
     
     public UserTasks(int UserTaskId, int UserId, DateOnly Date, TimeOnly Time, string NameOfTask)
@@ -66,11 +66,11 @@ public class UserTasks
         this.UserId = UserId;
         this.Date = Date;
         this.Time  = Time;
-        this.nameOfTask = NameOfTask;
+        this.NameOfTask = NameOfTask;
     }
 
     public override string ToString()
     {
-        return $"Task Id {UserTaskId}\n Task Date {Date}\n Task Time {Time} \n Task Name {nameOfTask}";
+        return $"Task Id {UserTaskId}\n Task Date {Date}\n Task Time {Time} \n Task Name {NameOfTask}";
     }
 }
