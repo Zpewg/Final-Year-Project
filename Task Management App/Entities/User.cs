@@ -28,6 +28,8 @@ public class User
     [MaxLength(10)]
     public string PhoneNumber { get; set; }
     
+    public User(){}
+    
     public User(int  userId, string name, string email, string password, string phoneNumber)
     {
         UserId = userId;

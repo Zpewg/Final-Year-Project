@@ -3,20 +3,22 @@ using Task_Management_App.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add DbContext with connection string from env variable or appsettings
 builder.Services.AddDbContext<MyDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 
 
-app.UseHttpsRedirection();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
-// TODO: Define your Task endpoints here
-// Example:
-// app.MapGet("/tasks", (MyDBContext db) => db.Tasks.ToList());
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
 app.Run();
