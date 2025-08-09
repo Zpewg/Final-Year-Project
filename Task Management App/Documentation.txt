@@ -6,7 +6,9 @@ Microsoft.EntityFrameworkCore.Tools 9.0.8
 Microsoft.VisualStudio.WEb.CodeGeneration 9.0.0
 ENV file maker
 ENV file masker
+Swagger
 
 Progress:
 Created the first entity classes. 
 The app is now connected to a database via docker.
+You can create an user from swagger.
