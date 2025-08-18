@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Licenta\\Task Management App\\Task Management App\\Task Management App.csproj": {}
+    "D:\\VsCode Proj\\Task Management App\\Task Management App.csproj": {}
   },
   "projects": {
-    "D:\\Licenta\\Task Management App\\Task Management App\\Task Management App.csproj": {
+    "D:\\VsCode Proj\\Task Management App\\Task Management App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Licenta\\Task Management App\\Task Management App\\Task Management App.csproj",
+        "projectUniqueName": "D:\\VsCode Proj\\Task Management App\\Task Management App.csproj",
         "projectName": "Task Management App",
-        "projectPath": "D:\\Licenta\\Task Management App\\Task Management App\\Task Management App.csproj",
+        "projectPath": "D:\\VsCode Proj\\Task Management App\\Task Management App.csproj",
         "packagesPath": "C:\\Users\\mstef\\.nuget\\packages\\",
-        "outputPath": "D:\\Licenta\\Task Management App\\Task Management App\\obj\\",
+        "outputPath": "D:\\VsCode Proj\\Task Management App\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Vs Code Tools\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mstef\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\mstef\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -98,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Users\\mstef\\.dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
