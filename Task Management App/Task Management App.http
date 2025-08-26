@@ -1,4 +1,4 @@
-@Task_Management_App_HostAddress = http://localhost:7152
+@Task_Management_App_HostAddress = https://localhost:7152
 
 GET {{Task_Management_App_HostAddress}}/api/User/
 Accept: application/json

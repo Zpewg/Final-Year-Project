@@ -20,6 +20,14 @@ public class UserController : ControllerBase
     {
         _context = context;
     }
+    /*
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+    {
+        return await _context.Users.ToListAsync();
+    }*/
+    
+    
     [HttpGet("{id}")]
     public async Task<ActionResult<User>> GetUser(int id)
     {
@@ -27,6 +35,8 @@ public class UserController : ControllerBase
         if (user == null) return NotFound();
         return user;
     }
+    
+    
     //Method to create user
     [HttpPost]
     public async Task<ActionResult<User>> PostUser(User user)
@@ -34,7 +44,7 @@ public class UserController : ControllerBase
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetUser), new {id = user.UserId}, user);
+        return CreatedAtAction("GetUsers", new { id = user.UserId }, user);
     }
     
     //Method to delete user returns 204 code
@@ -47,5 +57,13 @@ public class UserController : ControllerBase
         await _context.SaveChangesAsync();
         return NoContent();
     }
+    
+    [HttpPost("register")]
+    public IActionResult Register([FromBody] UserDTO user)
+    {
+        Console.WriteLine(user.ToString());
+        return Ok(new { message = "User registered" });
+    }
+
 
 }

@@ -11984,7 +11984,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mstef\\.nuget\\packages\\": {}
+    "C:\\Users\\mstef\\.nuget\\packages\\": {},
+    "D:\\Vs Code Tools\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -11995,8 +11996,12 @@
       "packagesPath": "C:\\Users\\mstef\\.nuget\\packages\\",
       "outputPath": "D:\\Licenta\\Task Management App\\Task Management App\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Vs Code Tools\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\mstef\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\mstef\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
