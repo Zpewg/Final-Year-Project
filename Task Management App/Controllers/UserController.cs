@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Task_Management_App.DB;
 using Task_Management_App.Entities;
+using Task_Management_App.Service;
 
 
 namespace Task_Management_App.Controllers;
@@ -15,17 +16,20 @@ public class UserController : ControllerBase
 {
     
     private readonly MyDBContext _context;
+    private readonly UserService _userService;
 
-    public UserController(MyDBContext context)
+    
+    public UserController(MyDBContext context, UserService userService)
     {
         _context = context;
+        _userService = userService ??  throw new ArgumentNullException(nameof(userService));
     }
-    /*
+    
     [HttpGet]
     public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
         return await _context.Users.ToListAsync();
-    }*/
+    }
     
     
     [HttpGet("{id}")]
@@ -37,15 +41,6 @@ public class UserController : ControllerBase
     }
     
     
-    //Method to create user
-    [HttpPost]
-    public async Task<ActionResult<User>> PostUser(User user)
-    {
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction("GetUsers", new { id = user.UserId }, user);
-    }
     
     //Method to delete user returns 204 code
     [HttpDelete("{userId}")]
@@ -59,10 +54,12 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("register")]
-    public IActionResult Register([FromBody] UserDTO user)
+    public async Task<ActionResult<string>> Register([FromBody] UserDTO user)
     {
         Console.WriteLine(user.ToString());
+        await _userService.CreateUser(user);
         return Ok(new { message = "User registered" });
+        
     }
 
 

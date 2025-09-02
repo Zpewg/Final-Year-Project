@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Task_Management_App.DB;
+using Task_Management_App.Repository;
+using Task_Management_App.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +10,22 @@ builder.Services.AddDbContext<MyDBContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserService>();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.SetIsOriginAllowed(origin => 
+                origin.StartsWith("http://localhost")
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 
 var app = builder.Build();
 
@@ -16,7 +34,7 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
 
-
+    app.UseCors();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

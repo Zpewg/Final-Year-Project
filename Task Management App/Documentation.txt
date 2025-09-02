@@ -13,3 +13,4 @@ Created the first entity classes.
 The app is now connected to a database via docker.
 You can create an user from swagger.
 Added a DTO class, that will fetch data from frontend. 
+Users are now inserted in the DataBase. 
