@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Task_Management_App.Entities;
+using Task_Management_App.Repository;
 
 namespace Task_Management_App.Validators;
 
@@ -21,34 +22,44 @@ public class UserValidator
     
     private List<string> errors = new List<string>();
     
-    public async Task<List<string>> ValidateUser(UserDTO user)
-    {   
-        returnMailError(user);
-        returnPhoneError(user);
-        returnUserNameError(user);
-        returnPasswordError(user);
+    private readonly UserRepository _userRepository;
+
+    public UserValidator(UserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
+    
+    public List<User> allUsers = new List<User>();
+    
+    public async Task<List<string>> ValidateUser(User user)
+    {
+        allUsers = await _userRepository.GetAllUsers();
+        ReturnMailError(user);
+        ReturnPhoneError(user);
+        ReturnUserNameError(user);
+        ReturnPasswordError(user);
 
         return errors;
     }
 
 
-    private void returnMailError(UserDTO user)
+    private void ReturnMailError(User user)
     {
-        if (!regexMail.IsMatch(user.Mail))
+        if (!regexMail.IsMatch(user.Email) || allUsers.Where(u => u.Email.Equals(user.Email)).Count() > 0)
         {
-            errors.Add("Email address is not correct.");
+            errors.Add("Email address is not correct or is already in use.");
         }
     }
 
-    private void returnPhoneError(UserDTO user)
+    private void ReturnPhoneError(User user)
     {
-        if (!regexPhone.IsMatch(user.PhoneNumber))
+        if (!regexPhone.IsMatch(user.PhoneNumber) || allUsers.Where(u => u.PhoneNumber.Equals(user.PhoneNumber)).Count() > 0)
         {
-            errors.Add("Phone number is not correct.");
+            errors.Add("Phone number is not correct or  is already in use.");
         }
     }
 
-    private void returnUserNameError(UserDTO user)
+    private void ReturnUserNameError(User user)
     {
         if (!regexUserName.IsMatch(user.Name))
         {
@@ -56,12 +67,14 @@ public class UserValidator
         }
     }
 
-    private void returnPasswordError(UserDTO user)
+    private void ReturnPasswordError(User user)
     {
         if (!regexPassword.IsMatch(user.Password))
         {
             errors.Add("Password is not correct.");
         }
     }
-
+    
+  
+    
 }

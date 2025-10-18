@@ -54,7 +54,7 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("register")]
-    public async Task<ActionResult<string>> Register([FromBody] UserDTO user)
+    public async Task<ActionResult<string>> Register([FromBody] User user)
     {
         Console.WriteLine(user.ToString());
         await _userService.CreateUser(user);

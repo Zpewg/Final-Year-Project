@@ -6,6 +6,7 @@ namespace Task_Management_App.Entities;
 public class User
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int UserId { get; set; }
     
     [Required]
@@ -18,9 +19,7 @@ public class User
     [MaxLength(60)]
     public string Email { get; set; }
     
-    [Required]
-    [Column(TypeName = "varchar(20)")]
-    [MaxLength(20)]
+    [Required] 
     public string Password { get; set; }
     
     [Required]

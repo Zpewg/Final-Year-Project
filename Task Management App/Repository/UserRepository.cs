@@ -1,4 +1,5 @@
-﻿using Task_Management_App.DB;
+﻿using Microsoft.EntityFrameworkCore;
+using Task_Management_App.DB;
 
 namespace Task_Management_App.Repository;
 
@@ -25,6 +26,12 @@ public class UserRepository
         Console.WriteLine("Am ajuns in repo");
         await _context.Users.AddAsync(user);
         await _context.SaveChangesAsync();
+    }
+    
+    //method to retrieve all users
+    public async Task<List<User>> GetAllUsers()
+    {
+        return await _context.Users.ToListAsync();
     }
 
 }
