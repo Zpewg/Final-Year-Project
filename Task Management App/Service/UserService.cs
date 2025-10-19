@@ -32,6 +32,7 @@ public class UserService
             return errors;
         }
         user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+        
         await _userRepository.AddUser(user);
         
         return errors;

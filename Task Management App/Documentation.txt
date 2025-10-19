@@ -8,6 +8,7 @@ ENV file maker
 ENV file masker
 Swagger
 
+
 Progress:
 Created the first entity classes. 
 The app is now connected to a database via docker.

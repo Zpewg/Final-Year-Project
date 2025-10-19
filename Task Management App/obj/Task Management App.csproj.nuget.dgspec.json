@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[0.0.0.73, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.14.1, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.10, )"
