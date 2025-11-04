@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Task_Management_App.DB;
 using Task_Management_App.Entities;
 using Task_Management_App.Service;
@@ -51,12 +52,16 @@ public class UserController : ControllerBase
     }
     
     [HttpPost("register")]
-    public async Task<ActionResult<string>> Register([FromBody] User user)
+    public async Task<ActionResult<List<string>>> Register([FromBody] User user)
     {
         Console.WriteLine(user.ToString());
-        await _userService.CreateUser(user);
-        return Ok(new { message = "User registered" });
-        
+        List <string> error = await _userService.CreateUser(user);
+        if (error.IsNullOrEmpty())
+        {
+            return Ok(new { error });
+        }
+        return BadRequest(error);
+
     }
 
 

@@ -276,3 +276,6 @@ D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\Swashbuckle.
 D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\BCrypt.Net-Next.dll
+D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\MailKit.dll
+D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\MimeKit.dll
