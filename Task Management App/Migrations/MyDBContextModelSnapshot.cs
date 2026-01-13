@@ -54,6 +54,9 @@ namespace Task_Management_App.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(60)
@@ -105,6 +108,46 @@ namespace Task_Management_App.Migrations
                     b.HasKey("UserTaskId");
 
                     b.ToTable("UserTasks");
+                });
+
+            modelBuilder.Entity("Task_Management_App.Entities.VerifyMessage", b =>
+                {
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"));
+
+                    b.Property<DateTime>("CurrentTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VerifysMessage")
+                        .IsRequired()
+                        .HasColumnType("varchar(6)");
+
+                    b.Property<string>("code")
+                        .IsRequired()
+                        .HasColumnType("varchar(20)");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("VerifyMessages");
+                });
+
+            modelBuilder.Entity("Task_Management_App.Entities.VerifyMessage", b =>
+                {
+                    b.HasOne("Task_Management_App.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

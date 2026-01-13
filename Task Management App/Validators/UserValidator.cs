@@ -31,7 +31,7 @@ public class UserValidator
     
     public List<User> allUsers = new List<User>();
     
-    public async Task<List<string>> ValidateUser(User user)
+    public async Task<List<string>> ValidateUser(UserDTO user)
     {
         allUsers = await _userRepository.GetAllUsers();
         ReturnMailError(user);
@@ -43,36 +43,47 @@ public class UserValidator
     }
 
 
-    private void ReturnMailError(User user)
+    private void ReturnMailError(UserDTO user)
     {
-        if (!regexMail.IsMatch(user.Email) || allUsers.Where(u => u.Email.Equals(user.Email)).Count() > 0)
+        if (!regexMail.IsMatch(user.UserDTOEmail) || allUsers.Where(u => u.Email.Equals(user.UserDTOEmail)).Count() > 0)
         {
             errors.Add("Email address is not correct or is already in use.");
         }
     }
 
-    private void ReturnPhoneError(User user)
+    private void ReturnPhoneError(UserDTO user)
     {
-        if (!regexPhone.IsMatch(user.PhoneNumber) || allUsers.Where(u => u.PhoneNumber.Equals(user.PhoneNumber)).Count() > 0)
+        if (!regexPhone.IsMatch(user.UserDTOPhoneNumber) || allUsers.Where(u => u.PhoneNumber.Equals(user.UserDTOPhoneNumber)).Count() > 0)
         {
             errors.Add("Phone number is not correct or  is already in use.");
         }
     }
 
-    private void ReturnUserNameError(User user)
+    private void ReturnUserNameError(UserDTO user)
     {
-        if (!regexUserName.IsMatch(user.Name))
+        if (!regexUserName.IsMatch(user.UserDTOName))
         {
             errors.Add("Name is not correct.");
         }
     }
 
-    private void ReturnPasswordError(User user)
+    private void ReturnPasswordError(UserDTO user)
     {
-        if (!regexPassword.IsMatch(user.Password))
+        if (!regexPassword.IsMatch(user.UserDTOPassword))
         {
             errors.Add("Password is not correct.");
         }
+    }
+
+    public string PasswordIsNotCorrect(String password)
+    {
+      
+        if (!regexPassword.IsMatch(password))
+        {
+            return "Password is not correct.";
+        }
+            
+        return null;
     }
     
   

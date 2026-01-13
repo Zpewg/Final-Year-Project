@@ -34,4 +34,32 @@ public class UserRepository
         return await _context.Users.ToListAsync();
     }
 
+    public async Task<int> GetUserIdByEmail(string email)
+    {
+        return await _context.Users.Where(u => u.Email == email).Select(u => (int) u.UserId).FirstOrDefaultAsync();
+    }
+
+    public async Task<User> GetUserByEmail(string email)
+    {
+        return await _context.Users.Where(u => u.Email == email).Select(u => (User) u).FirstOrDefaultAsync();
+    }
+    public async Task UpdateUserStatus(int userId, bool status)
+    {
+        var user = await _context.Users.Where(u=> u.UserId == userId).FirstOrDefaultAsync();
+        
+        user.Active = status;
+        _context.Entry(user).State = EntityState.Modified;
+        
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateUserPassword(int userId, string  password)
+    {
+        var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+        
+        user.Password = password;
+        _context.Entry(user).State = EntityState.Modified;
+        
+        await _context.SaveChangesAsync();
+    }
 }

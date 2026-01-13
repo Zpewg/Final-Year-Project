@@ -17,7 +17,8 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.10",
           "Microsoft.VisualStudio.Web.CodeGeneration": "9.0.0",
-          "Swashbuckle.AspNetCore": "9.0.6"
+          "Swashbuckle.AspNetCore": "9.0.6",
+          "dotenv.net": "4.0.0"
         },
         "runtime": {
           "Task Management App.dll": {}
@@ -82,6 +83,14 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Dart.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "dotenv.net/4.0.0": {
+        "runtime": {
+          "lib/netstandard2.1/dotenv.net.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -2811,6 +2820,13 @@
       "sha512": "sha512-KnjD5o2LUtCfjWgTlJPWWSEaXEtRSpVuT+/19Ta4AtkFwx1B5tuh24HrbtW9B2RSXmYJuTM7ci4tJ60lWp77sA==",
       "path": "dart/1.0.0",
       "hashPath": "dart.1.0.0.nupkg.sha512"
+    },
+    "dotenv.net/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SM8Qp6L/E3tsLKDFkV23M8WHyp5l1YqsXkylQDjQjV02Z2tUL3J6j1gV0gMs4L6YtoSB7jZPw2dnDdnpEXnpNQ==",
+      "path": "dotenv.net/4.0.0",
+      "hashPath": "dotenv.net.4.0.0.nupkg.sha512"
     },
     "Flutter/0.0.0.73": {
       "type": "package",

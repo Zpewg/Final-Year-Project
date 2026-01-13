@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "I+YJUAA14Js=",
+  "dgSpecHash": "3sRSD28qIbg=",
   "success": true,
   "projectFilePath": "D:\\Licenta\\Task Management App\\Task Management App\\Task Management App.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\mstef\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\mstef\\.nuget\\packages\\bouncycastle.cryptography\\2.6.1\\bouncycastle.cryptography.2.6.1.nupkg.sha512",
     "C:\\Users\\mstef\\.nuget\\packages\\dart\\1.0.0\\dart.1.0.0.nupkg.sha512",
+    "C:\\Users\\mstef\\.nuget\\packages\\dotenv.net\\4.0.0\\dotenv.net.4.0.0.nupkg.sha512",
     "C:\\Users\\mstef\\.nuget\\packages\\flutter\\0.0.0.73\\flutter.0.0.0.73.nupkg.sha512",
     "C:\\Users\\mstef\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\mstef\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

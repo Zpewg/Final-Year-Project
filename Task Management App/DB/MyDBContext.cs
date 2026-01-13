@@ -13,5 +13,5 @@ public class MyDBContext : DbContext
     public DbSet <User> Users { get; set; }
     public DbSet <Journal>  Journals { get; set; }
     public DbSet<UserTasks> UserTasks { get; set; }
-    
+    public DbSet<VerifyMessage> VerifyMessages { get; set; }
 }

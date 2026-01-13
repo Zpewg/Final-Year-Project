@@ -279,3 +279,4 @@ D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\BCrypt.Net-N
 D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
 D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\MailKit.dll
 D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\MimeKit.dll
+D:\Licenta\Task Management App\Task Management App\bin\Debug\net9.0\dotenv.net.dll

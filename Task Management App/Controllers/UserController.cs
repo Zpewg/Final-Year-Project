@@ -50,19 +50,6 @@ public class UserController : ControllerBase
         await _context.SaveChangesAsync();
         return NoContent();
     }
-    
-    [HttpPost("register")]
-    public async Task<ActionResult<List<string>>> Register([FromBody] User user)
-    {
-        Console.WriteLine(user.ToString());
-        List <string> error = await _userService.CreateUser(user);
-        if (error.IsNullOrEmpty())
-        {
-            return Ok(new { error });
-        }
-        return BadRequest(error);
-
-    }
 
 
 }

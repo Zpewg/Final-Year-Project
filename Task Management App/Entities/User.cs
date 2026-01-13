@@ -26,6 +26,10 @@ public class User
     [Column(TypeName = "varchar(10)")]
     [MaxLength(10)]
     public string PhoneNumber { get; set; }
+
+    [Column(TypeName = "bit")] 
+    public bool Active { get; set; } = false; 
+    
     
     public User(){}
     
@@ -36,7 +40,6 @@ public class User
         Email = email;
         Password = password;
         PhoneNumber = phoneNumber;
-        
     }
 
     public User(string name, string email, string password, string phoneNumber)
@@ -49,6 +52,6 @@ public class User
 
     public override string ToString()
     {
-        return $"User: {Name}, Email: {Email}, Phone: {PhoneNumber}";
+        return $"User: {Name}, Email: {Email}, Phone: {PhoneNumber}, Status: {Active}";
     }
 }
