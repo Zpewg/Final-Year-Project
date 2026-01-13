@@ -1,5 +1,4 @@
-﻿using MailKit;
-using Microsoft.AspNetCore.Http.HttpResults;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Task_Management_App.Entities;
 using Task_Management_App.Repository;

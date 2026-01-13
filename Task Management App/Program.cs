@@ -3,6 +3,7 @@ using Task_Management_App.Controllers;
 using Task_Management_App.DB;
 using Task_Management_App.Repository;
 using Task_Management_App.Service;
+using Task_Management_App.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddScoped<VerifyMessageService>();
 builder.Services.AddScoped<CodeFromUserService>();
 builder.Services.AddScoped<MessageCleanupService>();
 builder.Services.AddScoped<MailingService>();
+builder.Services.AddScoped<UserTasksRepository>();
+builder.Services.AddScoped<UserTasksService>();
+builder.Services.AddScoped<UserTasksValidator>();
 
 
 

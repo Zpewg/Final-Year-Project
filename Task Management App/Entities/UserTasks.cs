@@ -68,6 +68,10 @@ public class UserTasks
         this.Time  = Time;
         this.NameOfTask = NameOfTask;
     }
+    public UserTasks()
+    {
+        
+    }
 
     public override string ToString()
     {
