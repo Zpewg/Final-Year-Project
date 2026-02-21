@@ -29,15 +29,14 @@ public class UserTasksRepository
         _context.Entry(userTasks).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
-
-    public async Task<UserTasks> GetUserTask(int id)
-    {
-        return await _context.UserTasks.Where(t => t.UserId == id).SingleOrDefaultAsync();
-    }
     public async Task DeleteUserTask(UserTasks userTasks)
     {
+        var taskToDelete = await _context.UserTasks.FindAsync(userTasks.UserTaskId);
+        if (taskToDelete != null)
+        {   Console.WriteLine("user task deleted");
+            _context.UserTasks.Remove(taskToDelete);
+        }
 
-        _context.UserTasks.Remove(userTasks);
         await _context.SaveChangesAsync();
     }
 }

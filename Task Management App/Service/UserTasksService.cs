@@ -37,9 +37,8 @@ public class UserTasksService
         return error;
     }
 
-    public async Task DeleteUserTask(int id)
+    public async Task DeleteUserTask(UserTasks  userTasks)
     {
-        UserTasks userTasks = await _userTasks.GetUserTask(id);
         await _userTasks.DeleteUserTask(userTasks);
     }
 

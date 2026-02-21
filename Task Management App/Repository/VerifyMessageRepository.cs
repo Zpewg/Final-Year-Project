@@ -30,11 +30,14 @@ public class VerifyMessageRepository
             .ToListAsync();
     }
 
-    public async Task RemoveExpiredMessagesAsync()
+    public async Task RemoveExpiredMessagesAsync(CancellationToken cancellationToken = default)
     {
+        Console.WriteLine("Pasul 3");
         var threshold = DateTime.UtcNow.AddMinutes(-15);
 
-        await _context.VerifyMessages.Where(v => v.CurrentTime < threshold).ExecuteDeleteAsync();
+        await _context.VerifyMessages
+            .Where(v => v.CurrentTime < threshold)
+            .ExecuteDeleteAsync(cancellationToken);
     }
     
     

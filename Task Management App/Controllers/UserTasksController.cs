@@ -31,14 +31,14 @@ public class UserTasksController : ControllerBase
     }
 
     [HttpPost("delete")]
-    public async Task<ActionResult> DeleteUserTask(int userTaskId)
+    public async Task<ActionResult> DeleteUserTask(UserTasks userTasks)
     {
-        await _userTaskService.DeleteUserTask(userTaskId);
+        await _userTaskService.DeleteUserTask(userTasks);
         return Ok();
     }
 
     [HttpPost("update")]
-    public async Task<ActionResult> UpdateUserTask(UserTasks userTasks)
+    public async Task<ActionResult> UpdateUserTask([FromBody] UserTasks userTasks)
     {
         await _userTaskService.UpdateUserTask(userTasks);
         return Ok();

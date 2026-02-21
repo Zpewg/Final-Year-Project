@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using NetTopologySuite.Geometries;
 using Task_Management_App.DB;
 
 #nullable disable
@@ -17,7 +18,7 @@ namespace Task_Management_App.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.10")
+                .HasAnnotation("ProductVersion", "10.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -32,7 +33,7 @@ namespace Task_Management_App.Migrations
 
                     b.Property<string>("JournalName")
                         .IsRequired()
-                        .HasColumnType("varchar(18)");
+                        .HasColumnType("varchar(40)");
 
                     b.Property<string>("JournalText")
                         .IsRequired()
@@ -61,6 +62,9 @@ namespace Task_Management_App.Migrations
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("varchar(60)");
+
+                    b.Property<Point>("Location")
+                        .HasColumnType("geography");
 
                     b.Property<string>("Name")
                         .IsRequired()

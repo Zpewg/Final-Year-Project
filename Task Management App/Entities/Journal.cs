@@ -12,7 +12,7 @@ public class Journal
     [ForeignKey("UserId")]
     public int UserId { get; set; }
     
-    [Column(TypeName = "varchar(18)")]
+    [Column(TypeName = "varchar(40)")]
     public string JournalName { get; set; }
     
     public string JournalText { get; set; }

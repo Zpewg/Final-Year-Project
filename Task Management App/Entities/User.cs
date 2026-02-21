@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NetTopologySuite.Geometries;
 
 namespace Task_Management_App.Entities;
 
@@ -29,6 +30,9 @@ public class User
 
     [Column(TypeName = "bit")] 
     public bool Active { get; set; } = false; 
+    
+    
+    public Point? Location { get; set; }
     
     
     public User(){}
