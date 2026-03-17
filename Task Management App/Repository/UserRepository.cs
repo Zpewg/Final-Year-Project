@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 using Task_Management_App.DB;
 
 namespace Task_Management_App.Repository;
@@ -61,5 +62,14 @@ public class UserRepository
         _context.Entry(user).State = EntityState.Modified;
         
         await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateUserLocation(User user, Point location, int km)
+    {
+        user.Location = location;
+        user.Km = km;
+        _context.Entry(user).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        
     }
 }

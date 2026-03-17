@@ -51,5 +51,23 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{location")]
+    public async Task<ActionResult> PutLocation(bool location, int km, [FromBody] User user)
+    {
+        
+        if (!location) return BadRequest("Location tracking is disabled.");
+        
+        string userIp = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+        if (string.IsNullOrEmpty(userIp) || userIp == "::1")
+        {
+            userIp = "8.8.8.8";
+        }
+        
+        var result = await _userService.UpdateUserLocation(user, userIp, km);
+        return Ok(new { message = result, ipDetected = userIp });
+        
+    }
+
 
 }

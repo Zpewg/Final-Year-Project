@@ -63,6 +63,9 @@ namespace Task_Management_App.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("varchar(60)");
 
+                    b.Property<int?>("Km")
+                        .HasColumnType("int");
+
                     b.Property<Point>("Location")
                         .HasColumnType("geography");
 

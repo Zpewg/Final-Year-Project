@@ -2,14 +2,17 @@
 using Task_Management_App.Validators;
 using BCrypt.Net;
 using System;
+using NetTopologySuite.Geometries;
 
 namespace Task_Management_App.Service;
 using Task_Management_App.Repository;
-
+using MaxMind.GeoIP2;
 public class UserService
 {
     private readonly UserRepository _userRepository;
     private readonly VerifyMessageService _verifyMessageService;
+    
+    public record IpApiResponse(string status, string country, string city, double lat, double lon);
 
     public UserService(UserRepository userRepository, VerifyMessageService verifyMessageService)
     {
@@ -69,6 +72,25 @@ public class UserService
         MailingService mailingService = new MailingService();
         string message = mailingService.MailToUser(user.Email);
         return message;
+    }
+
+    public async Task<string> UpdateUserLocation(User user, string ip, int km)
+    {
+        // Aici folosim un API extern gratuit (ex: ip-api.com) pentru a evita baze de date locale
+        using var client = new HttpClient();
+        var response = await client.GetFromJsonAsync<IpApiResponse>($"http://ip-api.com/json/{ip}");
+
+        if (response != null && response.status == "success")
+        {
+            var point = new Point(response.lat, response.lon);
+        
+            // Apelezi metoda ta existentă de salvare
+            await _userRepository.UpdateUserLocation(user, point, km);
+        
+            return $"User located in {response.city}, {response.country}.";
+        }
+
+        return "Could not determine location from IP.";
     }
     
     

@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[4.14.1, )"
             },
+            "MaxMind.GeoIP2": {
+              "target": "Package",
+              "version": "[5.4.1, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.3, )"

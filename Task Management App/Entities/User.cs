@@ -34,6 +34,9 @@ public class User
     
     public Point? Location { get; set; }
     
+    [Column(TypeName = "int")]
+    public int? Km { get; set; }
+    
     
     public User(){}
     
@@ -53,6 +56,18 @@ public class User
         Password = password;
         PhoneNumber = phoneNumber;
     }
+    
+    public User(int  userId, string name, string email, string password, string phoneNumber, Point? location, int km)
+    {
+        UserId = userId;
+        Name = name;
+        Email = email;
+        Password = password;
+        PhoneNumber = phoneNumber;
+        Location = location;
+        Km = km;
+    }
+    
 
     public override string ToString()
     {
