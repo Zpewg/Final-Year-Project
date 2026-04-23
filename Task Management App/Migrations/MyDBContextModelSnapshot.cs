@@ -117,6 +117,39 @@ namespace Task_Management_App.Migrations
                     b.ToTable("UserTasks");
                 });
 
+            modelBuilder.Entity("Task_Management_App.Entities.UserTasksGlobal", b =>
+                {
+                    b.Property<int>("UserTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserTaskId"));
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Point>("Location")
+                        .IsRequired()
+                        .HasColumnType("geography");
+
+                    b.Property<string>("NameOfTask")
+                        .IsRequired()
+                        .HasColumnType("varchar(40)");
+
+                    b.Property<TimeOnly>("Time")
+                        .HasColumnType("time");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserTaskId");
+
+                    b.ToTable("UserTasksGlobal");
+                });
+
             modelBuilder.Entity("Task_Management_App.Entities.VerifyMessage", b =>
                 {
                     b.Property<int>("MessageId")

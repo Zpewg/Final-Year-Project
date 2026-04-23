@@ -85,6 +85,15 @@ public class UserValidator
             
         return null;
     }
+
+    public string MaxKmRange(int km)
+    {
+        if (km > 16)
+        {
+            return "Outside of range";
+        }
+        return null;
+    }
     
   
     

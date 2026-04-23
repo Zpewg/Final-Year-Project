@@ -41,7 +41,7 @@ public class MessageCleanupService : BackgroundService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Cleanup failed: {ex.Message}");
+            Console.WriteLine(ex.ToString());
         }
     }
     

@@ -2,6 +2,7 @@
 using Task_Management_App.Validators;
 using BCrypt.Net;
 using System;
+using Microsoft.AspNetCore.Http.HttpResults;
 using NetTopologySuite.Geometries;
 
 namespace Task_Management_App.Service;
@@ -76,13 +77,18 @@ public class UserService
 
     public async Task<string> UpdateUserLocation(User user, string ip, int km)
     {
+        UserValidator userValidator = new UserValidator(_userRepository);
+        if (userValidator.MaxKmRange(km) != null)
+        {
+            return "Outside of range";
+        }
         // Aici folosim un API extern gratuit (ex: ip-api.com) pentru a evita baze de date locale
         using var client = new HttpClient();
         var response = await client.GetFromJsonAsync<IpApiResponse>($"http://ip-api.com/json/{ip}");
 
         if (response != null && response.status == "success")
         {
-            var point = new Point(response.lat, response.lon);
+            var point = new Point(response.lon, response.lat) { SRID = 4326 };
         
             // Apelezi metoda ta existentă de salvare
             await _userRepository.UpdateUserLocation(user, point, km);

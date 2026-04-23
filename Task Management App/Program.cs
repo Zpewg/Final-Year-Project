@@ -4,7 +4,7 @@ using Task_Management_App.DB;
 using Task_Management_App.Repository;
 using Task_Management_App.Service;
 using Task_Management_App.Validators;
-
+using NetTopologySuite.IO.Converters;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MyDBContext>(options =>
@@ -28,7 +28,9 @@ builder.Services.AddScoped<UserTasksValidator>();
 builder.Services.AddScoped<JournalRepository>();
 builder.Services.AddScoped<JournalService>();
 builder.Services.AddScoped<JournalValidator>();
-
+builder.Services.AddScoped<UserTasksGlobalRepository>(); 
+builder.Services.AddScoped<UserTasksGlobalService>();
+builder.Services.AddScoped<UserTasksGlobalValidator>();
 
 
 builder.Services.AddCors(options =>
@@ -42,10 +44,20 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // Add the GeoJsonConverterFactory to handle Point, Polygon, etc.
+        var geoJsonConverterFactory = new GeoJsonConverterFactory();
+        options.JsonSerializerOptions.Converters.Add(geoJsonConverterFactory);
+        
+        // This is the specific setting the error message suggested as a fallback, 
+        // though the GeoJson converter usually solves the root cause.
+        options.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals;
+    });
 
 var app = builder.Build();
-
+Console.WriteLine("CONN: " + app.Configuration.GetConnectionString("DefaultConnection"));
 
 
     app.UseSwagger();
@@ -55,5 +67,6 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
 
 app.Run();

@@ -51,7 +51,7 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{location")]
+    [HttpPost("{location}")]
     public async Task<ActionResult> PutLocation(bool location, int km, [FromBody] User user)
     {
         

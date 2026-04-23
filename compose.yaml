@@ -2,19 +2,19 @@
   taskmanagementapp:
     image: taskmanagementapp
     build:
-      context: .
+      context: . 
       dockerfile: Task Management App/Dockerfile
       
   api:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Task Management App/Dockerfile
     ports:
-      - "5000:5000"
+      - "5001:5000"
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Server=localhost;Database=TaskDB;User Id=sa;Password=${SA_PASSWORD};TrustedCertificate=True;
+      - ConnectionStrings__DefaultConnection=Server=db;Database=TaskDB;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True;
       
 
   db:
