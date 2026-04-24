@@ -16,6 +16,7 @@ public class UserTasksGlobalRepository
 
     public async Task<List<UserTasksGlobal>> GetUserTasksByKm(Point userLocation, int km)
     {
+        
         double distanceInMeters = km * 1000.0;
 
         return await _context.UserTasksGlobal

@@ -21,16 +21,21 @@ public class UserTasksGlobalController : ControllerBase
     [HttpPost("create")]
     public async Task<ActionResult<List<string>>> CreateUserTask([FromBody] GlobalTaskRequestDto request)
     {
-        // 1. Extragem obiectele din DTO-ul primit
+        Console.WriteLine("Am primit requestul");
+       
         UserTasksGlobal userTasks = request.Task;
         User user = request.User;
+        Console.WriteLine("Am primit obiectele din DTO-ul:");
+        Console.WriteLine(userTasks.ToString());
+        Console.WriteLine(user.ToString());
 
-        // 2. Aplicăm logica
+        
         if (user.Location == null)
         {
             return BadRequest(new List<string> { "Locația lipsește. Activează 'Share Location' mai întâi." });
         }
         
+        Console.WriteLine(user.UserId);
         userTasks.Location = user.Location;
         userTasks.UserId = user.UserId; 
 
@@ -43,9 +48,14 @@ public class UserTasksGlobalController : ControllerBase
         return BadRequest(errors);
     }
     
-    [HttpGet("get")]
-    public async Task<ActionResult<List<UserTasksGlobal>>> GetUserTasksByUserId(User user, int km)
+    [HttpPost("get")]
+    public async Task<ActionResult<List<UserTasksGlobal>>> GetUserTasksByUserId(User user)
     {
+        if (user.Km == null)
+        {
+            return BadRequest("Km cant be null");
+        }
+        int km = user.Km.Value;
         List<UserTasksGlobal> userTasks = await _userTasksGlobalService.ReadUserTasksGlobal(user.Location, km);
         return Ok(userTasks);
     }

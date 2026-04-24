@@ -13,7 +13,7 @@ public class UserTasksGlobal
     public int UserId { get; set; }
     
     [ForeignKey("Location")]
-    public Point Location { get; set; }
+    public Point? Location { get; set; }
     
     public string? Description {get; set;}
     
