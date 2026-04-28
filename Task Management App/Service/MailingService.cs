@@ -22,21 +22,18 @@ public class MailingService
     public string MailToUser(string userMail)
     {
         Console.WriteLine($"Mailing to {userMail} s-a trimis mail");
-        DotEnv.Load(options: new DotEnvOptions(
-            envFilePaths: new[]
-            {
-                Path.Combine(AppContext.BaseDirectory,
-                    "D:\\Licenta\\Task Management App\\Task Management App\\Service\\password.env")
-            },
-            overwriteExistingVars: true));
+ 
         var email = Environment.GetEnvironmentVariable("EMAIL");
         var password = Environment.GetEnvironmentVariable("PASSWORD");
      
         GenerateVerificationCode();
-
-        
+        Console.WriteLine(email);
+        if (email == null)
+        {
+            Console.WriteLine("[Mail Error] No email provided");
+        }
         var message = new MimeMessage();
-        message.From.Add(new MailboxAddress("Task Management", email));
+        message.From.Add(new MailboxAddress("TaskManagementApp", email));
         message.To.Add(new MailboxAddress("", userMail));
         message.Subject = "Your Task Management Verification Code";
 

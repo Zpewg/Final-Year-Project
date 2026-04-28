@@ -64,9 +64,30 @@ Console.WriteLine("CONN: " + app.Configuration.GetConnectionString("DefaultConne
     app.UseSwaggerUI();
 
     app.UseCors();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
+// Creăm un scope pentru a accesa serviciile înregistrate
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        // ATENȚIE: Înlocuiește "TaskContext" cu numele real al clasei tale DbContext!
+        var context = services.GetRequiredService<MyDBContext>(); 
+        
+        // Dacă folosești Entity Framework Migrations (recomandat):
+        context.Database.Migrate(); 
+        
+        // Dacă NU folosești Migrations și vrei doar să forțezi crearea tabelelor direct:
+        // context.Database.EnsureCreated();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "A apărut o eroare la crearea bazei de date.");
+    }
+}
 
 app.Run();

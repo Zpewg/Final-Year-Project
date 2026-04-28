@@ -1,0 +1,42 @@
+# 1. Partea care pornește containerul SQL Server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-db-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: task-db
+  template:
+    metadata:
+      labels:
+        app: task-db
+    spec:
+      containers:
+        - name: sql-server
+          image: mcr.microsoft.com/mssql/server:2022-latest
+          ports:
+            - containerPort: 1433
+          env:
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: task-secrets
+                  key: SQL_PASSWORD # Trebuie să fie la fel ca în api-deployment.yaml
+
+---
+# 2. Partea care creează legătura de rețea (Service)
+apiVersion: v1
+kind: Service
+metadata:
+  name: task-db-service # ATENȚIE: Acesta devine "Serverul" din Connection String!
+spec:
+  selector:
+    app: task-db
+  ports:
+    - protocol: TCP
+      port: 1433
+      targetPort: 1433

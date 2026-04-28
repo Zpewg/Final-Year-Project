@@ -59,11 +59,11 @@ public class UserController : ControllerBase
         
         string userIp = HttpContext.Connection.RemoteIpAddress?.ToString();
 
-        if (string.IsNullOrEmpty(userIp) || userIp == "::1")
+        if (string.IsNullOrEmpty(userIp) || userIp == "::1" || userIp == "127.0.0.1")
         {
-            userIp = "8.8.8.8";
+            using var httpClient = new HttpClient();
+            userIp = await httpClient.GetStringAsync("https://api.ipify.org");
         }
-        
         var result = await _userService.UpdateUserLocation(user, userIp, km);
         return Ok(new { message = result, ipDetected = userIp });
         

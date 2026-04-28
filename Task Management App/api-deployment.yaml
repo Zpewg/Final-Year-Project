@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-api-deployment
+  labels:
+    app: task-api
+spec:
+  replicas: 1 # Aici îi poți spune să ruleze 3 instanțe simultan dacă vrei!
+  selector:
+    matchLabels:
+      app: task-api
+  template:
+    metadata:
+      labels:
+        app: task-api
+    spec:
+      containers:
+        - name: api-container
+          image: taskmanagementapp:latest
+          imagePullPolicy: Never # SUPER IMPORTANT: Îi spune să nu caute pe net, ci să folosească imaginea locală
+          ports:
+            - containerPort: 8080 # Portul expus de baza ta din Dockerfile
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            
+            # 1. Luăm parola din Secret și o punem într-o variabilă temporară
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: task-secrets
+                  key: SQL_PASSWORD
+            
+            # 2. Construim Connection String-ul folosind variabila de mai sus $(DB_PASSWORD)
+            - name: ConnectionStrings__DefaultConnection
+              value: "Server=task-db-service;Database=TaskDB;User Id=sa;Password=$(DB_PASSWORD);TrustServerCertificate=True;"
+            
+            # Credențialele de mail
+            - name: EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: task-secrets
+                  key: MAIL_USER
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: task-secrets
+                  key: MAIL_PASS

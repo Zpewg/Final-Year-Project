@@ -39,4 +39,10 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Service\mail.env">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
