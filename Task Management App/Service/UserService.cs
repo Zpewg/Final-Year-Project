@@ -74,29 +74,19 @@ public class UserService
         string message = mailingService.MailToUser(user.Email);
         return message;
     }
-
-    public async Task<string> UpdateUserLocation(User user, string ip, int km)
+    public async Task<string> UpdateUserLocation(int userId, Point point, int km)
     {
-        UserValidator userValidator = new UserValidator(_userRepository);
-        if (userValidator.MaxKmRange(km) != null)
-        {
-            return "Outside of range";
-        }
-        // Aici folosim un API extern gratuit (ex: ip-api.com) pentru a evita baze de date locale
-        using var client = new HttpClient();
-        var response = await client.GetFromJsonAsync<IpApiResponse>($"http://ip-api.com/json/{ip}");
+        var user = await _userRepository.FindUserById(userId);
 
-        if (response != null && response.status == "success")
-        {
-            var point = new Point(response.lon, response.lat) { SRID = 4326 };
-        
-            // Apelezi metoda ta existentă de salvare
-            await _userRepository.UpdateUserLocation(user, point, km);
-        
-            return $"User located in {response.city}, {response.country}.";
-        }
+        if (user == null)
+            return "User not found";
 
-        return "Could not determine location from IP.";
+        user.Location = point;
+        user.Km = km;
+
+        await _userRepository.UpdateUserLocation(user, user.Location, user.Km);
+
+        return "Location updated successfully";
     }
     
     

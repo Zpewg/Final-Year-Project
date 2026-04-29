@@ -14,11 +14,14 @@ public class UserTasksGlobalRepository
         _context = context;
     }
 
-    public async Task<List<UserTasksGlobal>> GetUserTasksByKm(Point userLocation, int km)
+    public async Task<List<UserTasksGlobal>> GetUserTasksByKm(Point userLocation, int? km)
     {
         
-        double distanceInMeters = km * 1000.0;
-
+        double? distanceInMeters = km * 1000.0;
+        if (distanceInMeters == null)
+        {
+            return null;
+        }
         return await _context.UserTasksGlobal
             // Filters tasks that have a location and are within the specified radius
             .Where(t => t.Location != null && t.Location.Distance(userLocation) <= distanceInMeters)

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: api-container
-          image: taskmanagementapp:latest
+          image: taskmanagementapp:v3
           imagePullPolicy: Never # SUPER IMPORTANT: Îi spune să nu caute pe net, ci să folosească imaginea locală
           ports:
             - containerPort: 8080 # Portul expus de baza ta din Dockerfile

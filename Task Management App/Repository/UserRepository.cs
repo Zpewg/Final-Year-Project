@@ -64,7 +64,13 @@ public class UserRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateUserLocation(User user, Point location, int km)
+    public async Task<User> FindUserById(int userId)
+    {
+        var  user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+        return user;
+    }
+
+    public async Task UpdateUserLocation(User user, Point location, int? km)
     {
         user.Location = location;
         user.Km = km;

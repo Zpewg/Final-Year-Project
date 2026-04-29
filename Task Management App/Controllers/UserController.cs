@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NetTopologySuite.Geometries;
 using Task_Management_App.DB;
 using Task_Management_App.Entities;
 using Task_Management_App.Service;
@@ -51,22 +52,25 @@ public class UserController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("{location}")]
-    public async Task<ActionResult> PutLocation(bool location, int km, [FromBody] User user)
+    [HttpPost("location")]
+    public async Task<ActionResult> UpdateLocation([FromBody] LocationDTO dto)
     {
-        
-        if (!location) return BadRequest("Location tracking is disabled.");
-        
-        string userIp = HttpContext.Connection.RemoteIpAddress?.ToString();
+        if (dto.Km <= 0 || dto.Km > 16)
+            return BadRequest("Invalid km range");
 
-        if (string.IsNullOrEmpty(userIp) || userIp == "::1" || userIp == "127.0.0.1")
+        var point = new Point(dto.Longitude, dto.Latitude)
         {
-            using var httpClient = new HttpClient();
-            userIp = await httpClient.GetStringAsync("https://api.ipify.org");
-        }
-        var result = await _userService.UpdateUserLocation(user, userIp, km);
-        return Ok(new { message = result, ipDetected = userIp });
-        
+            SRID = 4326
+        };
+
+        var result = await _userService.UpdateUserLocation(dto.UserId, point, dto.Km);
+
+        return Ok(new
+        {
+            message = result,
+            lat = dto.Latitude,
+            lng = dto.Longitude
+        });
     }
 
 

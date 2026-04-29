@@ -51,12 +51,11 @@ public class UserTasksGlobalController : ControllerBase
     [HttpPost("get")]
     public async Task<ActionResult<List<UserTasksGlobal>>> GetUserTasksByUserId(User user)
     {
-        if (user.Km == null)
+        List<UserTasksGlobal> userTasks = await _userTasksGlobalService.ReadUserTasksGlobal(user);
+        if (userTasks.IsNullOrEmpty())
         {
-            return BadRequest("Km cant be null");
+            return BadRequest("no user Tasks");
         }
-        int km = user.Km.Value;
-        List<UserTasksGlobal> userTasks = await _userTasksGlobalService.ReadUserTasksGlobal(user.Location, km);
         return Ok(userTasks);
     }
 }

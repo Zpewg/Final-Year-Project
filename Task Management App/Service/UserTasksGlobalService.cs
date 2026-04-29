@@ -9,11 +9,13 @@ public class UserTasksGlobalService
 {
     private readonly UserTasksGlobalRepository _userTasksGlobal;
     private readonly UserTasksGlobalValidator _userTasksGlobalValidation;
+    private readonly UserRepository _userRepository;
     
-    public UserTasksGlobalService(UserTasksGlobalRepository userTasksGlobal, UserTasksGlobalValidator userTasksGlobalValidation)
+    public UserTasksGlobalService(UserTasksGlobalRepository userTasksGlobal, UserTasksGlobalValidator userTasksGlobalValidation,  UserRepository userRepository)
     {
         _userTasksGlobal = userTasksGlobal;
         _userTasksGlobalValidation = userTasksGlobalValidation;
+        _userRepository = userRepository;
     }
 
     public async Task<List<string>> CreateUserTasksGlobal(UserTasksGlobal userTasksGlobal)
@@ -26,8 +28,11 @@ public class UserTasksGlobalService
         return errors;
     }
 
-    public async Task<List<UserTasksGlobal>> ReadUserTasksGlobal(Point userLocation, int km)
+    public async Task<List<UserTasksGlobal>> ReadUserTasksGlobal(User user)
     {
-        return await _userTasksGlobal.GetUserTasksByKm(userLocation, km);
+        user = await _userRepository.FindUserById(user.UserId);
+        List<UserTasksGlobal> userList = new List<UserTasksGlobal>();
+        userList = await _userTasksGlobal.GetUserTasksByKm(user.Location, user.Km);
+        return userList;
     }
 }
