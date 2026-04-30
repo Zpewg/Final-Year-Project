@@ -64,7 +64,7 @@ Console.WriteLine("CONN: " + app.Configuration.GetConnectionString("DefaultConne
     app.UseSwaggerUI();
 
     app.UseCors();
-//app.UseHttpsRedirection();
+
 app.UseAuthorization();
 app.MapControllers();
 
@@ -79,9 +79,6 @@ using (var scope = app.Services.CreateScope())
         
         // Dacă folosești Entity Framework Migrations (recomandat):
         context.Database.Migrate(); 
-        
-        // Dacă NU folosești Migrations și vrei doar să forțezi crearea tabelelor direct:
-        // context.Database.EnsureCreated();
     }
     catch (Exception ex)
     {

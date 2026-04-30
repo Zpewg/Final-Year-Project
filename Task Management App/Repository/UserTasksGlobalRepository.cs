@@ -28,9 +28,34 @@ public class UserTasksGlobalRepository
             .ToListAsync();
     }
 
+    public async Task<List<UserTasksGlobal>> GetUserTasksById(int userId)
+    {
+        if (userId == null)
+        {
+            return null;
+        }
+        return await _context.UserTasksGlobal.Where(t => t.UserId == userId).ToListAsync();
+    }
+
     public async Task AddUserTask(UserTasksGlobal userTasksGlobal)
     {
         await _context.UserTasksGlobal.AddAsync(userTasksGlobal);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<string> DeleteUserTask(UserTasksGlobal userTask)
+    {
+
+
+         _context.UserTasksGlobal.Remove(userTask);
+        await _context.SaveChangesAsync();
+
+        return "Task deleted succesfully";
+
+    }
+    public async Task UpdateUserTask(UserTasksGlobal userTasks)
+    {
+        _context.Entry(userTasks).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
 }

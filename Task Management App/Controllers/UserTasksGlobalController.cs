@@ -47,9 +47,21 @@ public class UserTasksGlobalController : ControllerBase
         }
         return BadRequest(errors);
     }
+
+    [HttpPost("delete")]
+    public async Task<ActionResult<List<string>>> DeleteUserTask([FromBody] UserTasksGlobal userTasks)
+    {
+        string message = await _userTasksGlobalService.DeleteUserTasksGlobal(userTasks);
+
+        if (message.IsNullOrEmpty())
+        {
+            return BadRequest("no user Tasks");
+        }
+        return Ok(message);
+    }
     
     [HttpPost("get")]
-    public async Task<ActionResult<List<UserTasksGlobal>>> GetUserTasksByUserId(User user)
+    public async Task<ActionResult<List<UserTasksGlobal>>> GetUserTasksByUserKm(User user)
     {
         List<UserTasksGlobal> userTasks = await _userTasksGlobalService.ReadUserTasksGlobal(user);
         if (userTasks.IsNullOrEmpty())
@@ -57,5 +69,27 @@ public class UserTasksGlobalController : ControllerBase
             return BadRequest("no user Tasks");
         }
         return Ok(userTasks);
+    }
+
+    [HttpPost("getGlobalTasksById")]
+    public async Task<ActionResult<List<UserTasksGlobal>>> GetGlobalTasksByUserId([FromBody]User user)
+    {
+        List<UserTasksGlobal> userTasksGlobals = await _userTasksGlobalService.ReadUserTasksGlobalById(user);
+        if (userTasksGlobals.IsNullOrEmpty())
+        {
+            return BadRequest("no user Tasks");
+        }
+        return Ok(userTasksGlobals);
+    }
+
+    [HttpPost("update")]
+    public async Task<ActionResult<List<string>>> UpdateUserTask([FromBody] UserTasksGlobal userTasks)
+    {
+        List<string> message = await _userTasksGlobalService.UpdateUserTasksGlobal(userTasks);
+        if (message.Any())
+        {
+            return BadRequest(message);
+        }
+        return Ok("Task updated");
     }
 }

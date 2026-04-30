@@ -35,4 +35,32 @@ public class UserTasksGlobalService
         userList = await _userTasksGlobal.GetUserTasksByKm(user.Location, user.Km);
         return userList;
     }
+
+    public async Task<List<UserTasksGlobal>> ReadUserTasksGlobalById(User user)
+    {
+        user = await _userRepository.FindUserById(user.UserId);
+        List<UserTasksGlobal> userListTasksGlobal = new List<UserTasksGlobal>();
+        userListTasksGlobal = await _userTasksGlobal.GetUserTasksById(user.UserId);
+        return userListTasksGlobal;
+    }
+
+    public async Task<string> DeleteUserTasksGlobal(UserTasksGlobal userTasksGlobal)
+    {
+        string message = await _userTasksGlobal.DeleteUserTask(userTasksGlobal);
+        
+        return message;
+    }
+
+    public async Task<List<string>> UpdateUserTasksGlobal(UserTasksGlobal userTasksGlobal)
+    {
+        List<string> message = new List<string>();
+        message = await _userTasksGlobalValidation.ValidateUserTasksGlobal(userTasksGlobal);
+
+        if (message.Any())
+        {
+            return message;
+        }
+        await  _userTasksGlobal.UpdateUserTask(userTasksGlobal);
+        return message;
+    }
 }

@@ -15,4 +15,7 @@ public class MyDBContext : DbContext
     public DbSet<UserTasks> UserTasks { get; set; }
     public DbSet<VerifyMessage> VerifyMessages { get; set; }    
     public DbSet<UserTasksGlobal> UserTasksGlobal { get; set; }
+    
+    public DbSet<NotificationEnabled> NotificationEnabled { get; set; }
+    public DbSet<NotificationLeadTime> NotificationLeadTime { get; set; }
 }
