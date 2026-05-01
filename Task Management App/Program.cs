@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using Task_Management_App.Controllers;
+using Serilog;
 using Task_Management_App.DB;
 using Task_Management_App.Repository;
 using Task_Management_App.Service;
 using Task_Management_App.Validators;
 using NetTopologySuite.IO.Converters;
+using StackExchange.Redis;
+using Task_Management_App.Hubs;
+using Task_Management_App.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MyDBContext>(options =>
@@ -31,7 +35,25 @@ builder.Services.AddScoped<JournalValidator>();
 builder.Services.AddScoped<UserTasksGlobalRepository>(); 
 builder.Services.AddScoped<UserTasksGlobalService>();
 builder.Services.AddScoped<UserTasksGlobalValidator>();
+builder.Services.AddScoped<NotificationEnabledRepository>();
+builder.Services.AddScoped<NotificationEnabledService>();
+builder.Services.AddScoped<NotificationLeadTimeRepository>();
+builder.Services.AddScoped<NotificationLeadTimeService>();
+builder.Services.AddSignalR();
+builder.Services.AddHostedService<NotificationWorker>();
+builder.Host.UseSerilog();
 
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp => 
+{
+    var connectionString = builder.Configuration.GetConnectionString("RedisConnection");
+    
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("Redis connection string 'RedisConnection' is missing from configuration.");
+    }
+    
+    return ConnectionMultiplexer.Connect(connectionString);
+});
 
 builder.Services.AddCors(options =>
 {
@@ -56,6 +78,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals;
     });
 
+
 var app = builder.Build();
 Console.WriteLine("CONN: " + app.Configuration.GetConnectionString("DefaultConnection"));
 
@@ -67,17 +90,17 @@ Console.WriteLine("CONN: " + app.Configuration.GetConnectionString("DefaultConne
 
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<NotificationHub>("/notificationHub");
 
-// Creăm un scope pentru a accesa serviciile înregistrate
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
-        // ATENȚIE: Înlocuiește "TaskContext" cu numele real al clasei tale DbContext!
+    
         var context = services.GetRequiredService<MyDBContext>(); 
         
-        // Dacă folosești Entity Framework Migrations (recomandat):
+       
         context.Database.Migrate(); 
     }
     catch (Exception ex)
@@ -86,5 +109,7 @@ using (var scope = app.Services.CreateScope())
         logger.LogError(ex, "A apărut o eroare la crearea bazei de date.");
     }
 }
+
+
 
 app.Run();

@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Task_Management_App.DB;
 using Task_Management_App.Entities;
 using Task_Management_App.Service;
 
@@ -10,12 +8,12 @@ namespace Task_Management_App.Controllers;
 [ApiController]
 public class UserDTOController : ControllerBase
 {
-    private readonly MyDBContext _context;
+   
     private readonly UserService _userService;
 
-    public UserDTOController(MyDBContext context, UserService userService)
+    public UserDTOController(UserService userService)
     {
-        _context = context;
+       
         _userService = userService;
     }
 

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: task-api
 spec:
-  replicas: 1 # Aici îi poți spune să ruleze 3 instanțe simultan dacă vrei!
+  replicas: 1
   selector:
     matchLabels:
       app: task-api
@@ -17,25 +17,29 @@ spec:
       containers:
         - name: api-container
           image: taskmanagementapp:v3
-          imagePullPolicy: Never # SUPER IMPORTANT: Îi spune să nu caute pe net, ci să folosească imaginea locală
+          imagePullPolicy: Never
           ports:
-            - containerPort: 8080 # Portul expus de baza ta din Dockerfile
+            - containerPort: 8080
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Development"
-            
-            # 1. Luăm parola din Secret și o punem într-o variabilă temporară
+            - name: TZ
+              value: "Europe/Bucharest"
+            - name: ConnectionStrings__RedisConnection
+              value: "redis:6379"
+
+            # 1. Parola DB din Secret
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: task-secrets
                   key: SQL_PASSWORD
             
-            # 2. Construim Connection String-ul folosind variabila de mai sus $(DB_PASSWORD)
+            # 2. Connection String-ul principal
             - name: ConnectionStrings__DefaultConnection
               value: "Server=task-db-service;Database=TaskDB;User Id=sa;Password=$(DB_PASSWORD);TrustServerCertificate=True;"
             
-            # Credențialele de mail
+            # Credențialele de mail din Secret
             - name: EMAIL
               valueFrom:
                 secretKeyRef:
@@ -46,3 +50,5 @@ spec:
                 secretKeyRef:
                   name: task-secrets
                   key: MAIL_PASS
+
+    

@@ -1,48 +1,47 @@
 ﻿using Task_Management_App.Entities;
 using Task_Management_App.Validators;
-using BCrypt.Net;
-using System;
-using Microsoft.AspNetCore.Http.HttpResults;
 using NetTopologySuite.Geometries;
+
 
 namespace Task_Management_App.Service;
 using Task_Management_App.Repository;
-using MaxMind.GeoIP2;
 public class UserService
 {
     private readonly UserRepository _userRepository;
     private readonly VerifyMessageService _verifyMessageService;
     
-    public record IpApiResponse(string status, string country, string city, double lat, double lon);
 
     public UserService(UserRepository userRepository, VerifyMessageService verifyMessageService)
     {
         _userRepository = userRepository ??  throw new ArgumentNullException(nameof(userRepository));
         _verifyMessageService = verifyMessageService ??  throw new ArgumentNullException(nameof(verifyMessageService));
-     
+        
+
     }
     public async Task<List<string>> CreateUser(UserDTO userDto)
     {
         Console.WriteLine("Am ajuns in service");
         List<string> errors = new List<string>();
-        
         UserValidator userValidator = new UserValidator(_userRepository);
         
         errors = await userValidator.ValidateUser(userDto);
 
         foreach (var error in errors)
         {
+            
             Console.WriteLine(error);
         }
+        
         if (errors.Any())
         {
+            
             return errors;
         }
 
         User user = new User(userDto.UserDTOName, userDto.UserDTOEmail, userDto.UserDTOPassword, userDto.UserDTOPhoneNumber );
         
         user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-        
+       
         await _userRepository.AddUser(user);
         string generatedCode = await MailUser(user);
         int userId = await _userRepository.GetUserIdByEmail(user.Email);
@@ -79,11 +78,17 @@ public class UserService
         var user = await _userRepository.FindUserById(userId);
 
         if (user == null)
+        {
+           
             return "User not found";
+        }
 
         user.Location = point;
         user.Km = km;
 
+        
+       
+        
         await _userRepository.UpdateUserLocation(user, user.Location, user.Km);
 
         return "Location updated successfully";
