@@ -18,4 +18,5 @@ public class MyDBContext : DbContext
     
     public DbSet<NotificationEnabled> NotificationEnabled { get; set; }
     public DbSet<NotificationLeadTime> NotificationLeadTime { get; set; }
+    public DbSet<TaskSuggestion> TaskSuggestion { get; set; }
 }

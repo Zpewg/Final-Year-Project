@@ -24,7 +24,7 @@ spec:
             - name: SA_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: task-secrets
+                  name: sql-pass
                   key: SQL_PASSWORD # Trebuie să fie la fel ca în api-deployment.yaml
 
 ---

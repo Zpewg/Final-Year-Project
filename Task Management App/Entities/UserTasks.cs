@@ -23,6 +23,18 @@ public class UserTasks
     [Column(TypeName = "varchar(40)")]
     [Required]
     public string NameOfTask { get; set; }
+    
+    [Column(TypeName = "int")]
+    public int? taskDifficulty { get; set; }
+    
+    [Column(TypeName = "int")]
+    public int? taskUrgency { get; set; }
+    
+    [Column(TypeName = "float")]
+    public double? taskLength { get; set; }
+    
+    [Column(TypeName = "float")]
+    public double? taskWeight { get; set; }
 
     [NotMapped]
     public string DueDateFormat
@@ -50,7 +62,7 @@ public class UserTasks
         }
     }
 
-    public UserTasks(int UserTaskId, int UserId, string Description, DateOnly Date, TimeOnly Time, string NameOfTask)
+    public UserTasks(int UserTaskId, int UserId, string Description, DateOnly Date, TimeOnly Time, string NameOfTask, int? taskDifficulty, int? taskUrgency, double? taskLength, double? taskWeight)
     {
         this.UserTaskId = UserTaskId;
         this.UserId = UserId;
@@ -58,6 +70,10 @@ public class UserTasks
         this.Date = Date;
         this.Time  = Time;
         this.NameOfTask = NameOfTask;
+        this.taskDifficulty = taskDifficulty;
+        this.taskUrgency = taskUrgency;
+        this.taskLength = taskLength;
+        this.taskWeight = taskWeight;
     }
     
     public UserTasks(int UserTaskId, int UserId, DateOnly Date, TimeOnly Time, string NameOfTask)

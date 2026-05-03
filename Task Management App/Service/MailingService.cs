@@ -13,7 +13,7 @@ public class MailingService
     private readonly ILogger<MailingService> _logger;
     
     
-    public MailingService(){}
+   
     private void GenerateVerificationCode()
     {
         var random = new Random();

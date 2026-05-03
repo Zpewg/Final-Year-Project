@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 using Task_Management_App.DB;
 using Task_Management_App.Repository;
 using Task_Management_App.Service;
@@ -8,6 +7,10 @@ using NetTopologySuite.IO.Converters;
 using StackExchange.Redis;
 using Task_Management_App.Hubs;
 using Task_Management_App.Services;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using System.Text.Json;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,9 +42,11 @@ builder.Services.AddScoped<NotificationEnabledRepository>();
 builder.Services.AddScoped<NotificationEnabledService>();
 builder.Services.AddScoped<NotificationLeadTimeRepository>();
 builder.Services.AddScoped<NotificationLeadTimeService>();
+builder.Services.AddScoped<TaskSuggestionRepository>();
+builder.Services.AddScoped<TaskSuggestionService>();
+builder.Services.AddScoped<ScheduleOptimizerService>();
 builder.Services.AddSignalR();
 builder.Services.AddHostedService<NotificationWorker>();
-builder.Host.UseSerilog();
 
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp => 
 {
@@ -76,7 +81,18 @@ builder.Services.AddControllers()
         // This is the specific setting the error message suggested as a fallback, 
         // though the GeoJson converter usually solves the root cause.
         options.JsonSerializerOptions.NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals;
-    });
+    }); 
+
+
+builder.Services.AddHealthChecks()
+    .AddSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Missing SQL Connection"),
+        name: "Database (SQL Server)",
+        tags: new[] { "db", "sql", "ready" })
+    .AddRedis(
+        builder.Configuration.GetConnectionString("RedisConnection") ?? throw new InvalidOperationException("Missing Redis Connection"),
+        name: "Redis Cache",
+        tags: new[] { "cache", "redis", "ready" });
 
 
 var app = builder.Build();
@@ -97,19 +113,38 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-    
-        var context = services.GetRequiredService<MyDBContext>(); 
-        
-       
-        context.Database.Migrate(); 
+        var context = services.GetRequiredService<MyDBContext>(); // Schimbă cu numele contextului tău (ex: TaskDbContext)
+        context.Database.Migrate(); // Asta aplică automat ultima migrare!
+        Console.WriteLine("Baza de date a fost updatată cu succes!");
     }
     catch (Exception ex)
     {
-        var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "A apărut o eroare la crearea bazei de date.");
-    }
+        Console.WriteLine($"Eroare la migrare: {ex.Message}");
+    }   
 }
-
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    // Aici formatăm răspunsul ca să fie un JSON frumos, nu doar un text chior cu "Healthy"
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+        
+        var response = new
+        {
+            status = report.Status.ToString(),
+            totalDuration = report.TotalDuration.TotalMilliseconds,
+            checks = report.Entries.Select(e => new
+            {
+                component = e.Key,
+                status = e.Value.Status.ToString(),
+                description = e.Value.Description,
+                duration = e.Value.Duration.TotalMilliseconds
+            })
+        };
+        
+        await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+    }
+});
 
 
 app.Run();

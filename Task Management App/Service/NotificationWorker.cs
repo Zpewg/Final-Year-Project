@@ -26,6 +26,8 @@ public class NotificationWorker : BackgroundService
     {
         Console.WriteLine($"[Worker] Worker started at: {DateTime.Now}");
         
+        await Task.Delay(TimeSpan.FromSeconds(40), stoppingToken);
+        
         var dbRedis = _redis.GetDatabase();
 
         while (!stoppingToken.IsCancellationRequested)

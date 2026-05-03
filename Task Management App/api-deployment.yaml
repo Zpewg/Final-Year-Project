@@ -20,19 +20,41 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
+          
+          # --- LIVENESS PROBE ---
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15 
+            periodSeconds: 20       
+            timeoutSeconds: 5
+            failureThreshold: 3    
+          
+          # --- READINESS PROBE ---
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Development"
             - name: TZ
               value: "Europe/Bucharest"
             - name: ConnectionStrings__RedisConnection
-              value: "redis:6379"
+              value: "redis:6379,abortConnect=false"
 
             # 1. Parola DB din Secret
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: task-secrets
+                  name: sql-pass
                   key: SQL_PASSWORD
             
             # 2. Connection String-ul principal
@@ -43,12 +65,10 @@ spec:
             - name: EMAIL
               valueFrom:
                 secretKeyRef:
-                  name: task-secrets
-                  key: MAIL_USER
+                  name: nume-secret
+                  key: EMAIL
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: task-secrets
-                  key: MAIL_PASS
-
-    
+                  name: nume-secret
+                  key: PASSWORD

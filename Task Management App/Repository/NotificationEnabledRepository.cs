@@ -30,8 +30,6 @@ public class NotificationEnabledRepository
         }
         else
         {
-            // 3. Dacă nu există (e prima dată când activează), atunci adăugăm
-            // Ne asigurăm că ID-ul este 0 sau null pentru ca SQL să genereze unul nou
             notificationEnabled.NotificationId = 0; 
             await _context.NotificationEnabled.AddAsync(notificationEnabled);
         }
